@@ -6,24 +6,21 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import me.tWizT3d_dreaMr.Hunter.Configurator;
+import me.tWizT3d_dreaMr.Hunter.main;
+
 public class BlockInteractionListener {
 
     @EventHandler
     public void ClickBlock(PlayerInteractEvent e) {
     	Player clicker=e.getPlayer();
-    	//TODO
-    	//insert check for if player is trying to add to container list
+    	if(!main.isOnList(clicker)) return;
     	
         BlockState state = e.getClickedBlock().getState();
         
         if (!(state instanceof Container)) { 
         	return;
         }
-        //I dont actually think i need this but just incase
-        //Container container = (Container) state;
-        
-        //TODO
-        //I gotta go setup the structure for what to do
-        
+        Configurator.addContainer(e.getClickedBlock());        
     }
 }

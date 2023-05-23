@@ -6,8 +6,9 @@ public class InventoryItems {
 private double Percentage;
 private ItemStack Reward;
 
-public InventoryItems(){
-	
+public InventoryItems(ItemStack Reward, double percentage){
+	this.Percentage=percentage;
+	this.Reward=Reward;
 }
 
 public ItemStack getReward() {
