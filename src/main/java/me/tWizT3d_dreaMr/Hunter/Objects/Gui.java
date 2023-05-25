@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 
 import me.tWizT3d_dreaMr.ShopAddon.main;
+import me.tWizT3d_dreaMr.Hunter.Configurator;
 import net.md_5.bungee.api.ChatColor;
 
 public class Gui {
@@ -24,30 +25,25 @@ public class Gui {
 		p.openInventory(inv);
 	}
 	private Inventory openGui() {
-		Shop.getPlugin().getCurrencyType();
-		Location l= shop.getSignLocation();
-		this.name= "Shop at " + l.getBlockX() + " " + l.getBlockY() + " " + l.getBlockZ();
-		Inventory inventory= Bukkit.createInventory(null, InventoryType.CHEST, name);
-		for(int i=0; i<27; i++) {
-			if(i==10||i==11||i==12) 
-				inventory.setItem(i, getItems(i));
+		this.name= Configurator.getUUID();
+		Inventory inventory= Bukkit.createInventory(p, 54, name);
+		
+		for(int i=0; i<45; i++) {
+			if(Configurator.invItems.size()<i)
+				break;
+			InventoryItems invi=Configurator.invItems.get(i);
+			//TODO create an item builder for the gui
+			ItemStack item=invi.getReward().clone();
+			Double Percentage=invi.Percentage();
 
-			else if(i==14||i==15||i==16) 
-				inventory.setItem(i, getPrice(i));
+			inventory.setItem(i,item/*TODO set the built item*/);
 			
-			else if(i==26||i==0||i==18||i==9||i==0||i==17||i==8) {
-				ItemStack item= new ItemStack(main.Confirm);
-				ItemMeta meta= item.getItemMeta();
-				meta.setDisplayName(ChatColor.GREEN+"Confirm "+ shop.getType().name().toLowerCase()+".");
-				item.setItemMeta(meta);
-				inventory.setItem(i, item);
-				}
-			
-			else if(i==13)
-				inventory=set13(inventory);
-			
-			else inventory.setItem(i, new ItemStack(main.Default));
 		}
+		ItemStack previous;
+		ItemStack next;
+		
+		inventory.setItem(46, previous);
+		inventory.setItem(54, next);
 		
 		
 		return inventory;
@@ -109,77 +105,6 @@ public class Gui {
 				item.setAmount(left);
 				return item;
 			}
-		}
-		return item;
-	}
-	private ItemStack getPrice(int i) {
-		ItemStack defItem=new ItemStack(main.NotMoney);
-		ItemStack item= defItem;
-		CurrencyType type=Guis.getCurrencyType();
-		if(type==CurrencyType.ITEM) {
-			item=new ItemStack(Shop.getPlugin().getItemCurrency().getType());
-			if(shop.getPrice() < 65) {
-				if(i==15||i==16)
-					return defItem;
-				item.setAmount((int) shop.getPrice());
-				return item;
-			}
-			if(shop.getPrice() < 129){
-				if(i==16)
-					return defItem;
-				if(i==14) {
-					item.setAmount(64);
-					ItemMeta meta= item.getItemMeta();
-					meta.setDisplayName(ChatColor.GREEN+shop.getPriceString());
-					item.setItemMeta(meta);
-					return item;
-				}
-				if(i==15) {
-					item.setAmount((int)shop.getPrice()-64);
-					ItemMeta meta= item.getItemMeta();
-					meta.setDisplayName(ChatColor.GREEN+shop.getPriceString());
-					item.setItemMeta(meta);
-					return item;
-				}
-			}
-			if(shop.getPrice() >=129){
-				if(i==14||i==15) {
-					item.setAmount(64);
-					ItemMeta meta= item.getItemMeta();
-					meta.setDisplayName(ChatColor.GREEN+shop.getPriceString());
-					item.setItemMeta(meta);
-					return item;
-				}
-				if(i==16) {
-					int left=(int)shop.getPrice()-128;
-					if(left>64)
-						left=64;
-					item.setAmount(left);
-					ItemMeta meta= item.getItemMeta();
-					meta.setDisplayName(ChatColor.GREEN+shop.getPriceString());
-					item.setItemMeta(meta);
-					return item;
-				}
-			}
-		}
-		if(type==CurrencyType.EXPERIENCE) {
-			if(i==15||i==16)
-				return defItem;
-			item= new ItemStack(Material.EXPERIENCE_BOTTLE);
-			ItemMeta meta= item.getItemMeta();
-			meta.setDisplayName(ChatColor.AQUA+shop.getPriceString());
-			item.setItemMeta(meta);
-			return item;
-		}
-		if(type==CurrencyType.VAULT) {
-			if(i==15||i==16)
-				return defItem;
-			item= new ItemStack(Material.GOLD_INGOT);
-			ItemMeta meta= item.getItemMeta();
-			meta.setDisplayName(ChatColor.GOLD+shop.getPriceString());
-			item.setItemMeta(meta);
-			return item;
-			
 		}
 		return item;
 	}

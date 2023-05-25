@@ -13,12 +13,8 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
+import me.tWizT3d_dreaMr.Hunter.Objects.Gui;
 
-import me.tWizT3d_dreaMr.ShopAddon.Gui.Gui;
-import me.tWizT3d_dreaMr.ShopAddon.Gui.Guis;
-
-import com.snowgears.shop.Shop;
-import com.snowgears.shop.shop.AbstractShop;
 
 public class GuiListener implements Listener {
     

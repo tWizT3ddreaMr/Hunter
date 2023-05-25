@@ -64,7 +64,7 @@ public class Configurator {
 		
 		
 	}
-	private static String getUUID() {
+	public static String getUUID() {
 	String characters ="abcdefghijklmnopqrstuvwxyz1234567890";
 	int count=0;
 	String UUID="";
