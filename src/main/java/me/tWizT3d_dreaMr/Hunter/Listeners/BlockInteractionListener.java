@@ -12,9 +12,24 @@ import me.tWizT3d_dreaMr.Hunter.main;
 public class BlockInteractionListener {
 
     @EventHandler
-    public void ClickBlock(PlayerInteractEvent e) {
+	public void ClickBlockMain(PlayerInteractEvent e) {
+    	ClickBlockContainer(e);
+    	ClickBlockInventoruy(e);
+	}
+    public void ClickBlockContainer(PlayerInteractEvent e) {
     	Player clicker=e.getPlayer();
-    	if(!main.isOnList(clicker)) return;
+    	if(!main.isOnList(clicker,0)) return;
+    	
+        BlockState state = e.getClickedBlock().getState();
+        
+        if (!(state instanceof Container)) { 
+        	return;
+        }
+        Configurator.addContainer(e.getClickedBlock());        
+    }
+    public void ClickBlockInventoruy(PlayerInteractEvent e) {
+    	Player clicker=e.getPlayer();
+    	if(!main.isOnList(clicker,1)) return;
     	
         BlockState state = e.getClickedBlock().getState();
         

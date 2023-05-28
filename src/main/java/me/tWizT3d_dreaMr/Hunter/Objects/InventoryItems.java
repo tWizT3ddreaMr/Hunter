@@ -13,6 +13,7 @@ public InventoryItems(ItemStack Reward, double percentage, String ID){
 	this.ID=ID;
 }
 
+
 public ItemStack getReward() {
 	return Reward;
 }

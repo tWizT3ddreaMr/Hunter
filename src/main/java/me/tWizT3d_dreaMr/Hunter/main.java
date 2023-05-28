@@ -12,7 +12,8 @@ import me.tWizT3d_dreaMr.Hunter.Objects.ConfigHandlerObject;
 import net.md_5.bungee.api.ChatColor;
 
 public class main extends JavaPlugin{
-public static ArrayList<Player> PSet=new ArrayList<>();
+	public static ArrayList<Player> PSetCont=new ArrayList<>();
+	public static ArrayList<Player> PSetInv=new ArrayList<>();
 private static Plugin plugin;
 private static ConfigHandlerObject con;
 @Override
@@ -20,9 +21,19 @@ public void onEnable() {
     LOAD();
 	plugin=this;
 }
-public static boolean isOnList(Player p) {
-	if(PSet.isEmpty()) return false;
-	if(PSet.contains(p)) return true;
+public static boolean isOnList(Player p, int i) {
+	/*
+	 * 0 is for HuntContainer
+	 * 1 is for HunterInventories
+	 */
+	if(i==0) {
+		if(PSetCont.isEmpty()) return false;
+		if(PSetCont.contains(p)) return true;
+	}
+	if(i==1) {
+		if(PSetInv.isEmpty()) return false;
+		if(PSetInv.contains(p)) return true;
+	}
 	return false;
 }
 public static void SAVE(YamlConfiguration config) {
@@ -49,21 +60,39 @@ if(args.length!=0)
 		case "help":  
 			Commander.help(sender);
 			break;
-		case "container":  
+		case "ctoggle":  
 			if (sender instanceof Player) {
-				Commander.togglePlayer((Player)sender);
+				Commander.toggleCPlayer((Player)sender);
 				}else
 					sender.sendMessage(ChatColor.RED+"You cant do that");
 			break;
 		case "coff":  
 			if (sender instanceof Player) {
-				Commander.removeFromList((Player)sender); //   
+				Commander.removeFromCList((Player)sender); //   
 				}else
 					sender.sendMessage(ChatColor.RED+"You cant do that");
 			break;
 		case "con":  
 			if (sender instanceof Player) {
-				Commander.addToList((Player)sender); //    
+				Commander.addToCList((Player)sender); //    
+				}else
+					sender.sendMessage(ChatColor.RED+"You cant do that");
+			break;
+		case "itoggle":  
+			if (sender instanceof Player) {
+				Commander.toggleIPlayer((Player)sender);
+				}else
+					sender.sendMessage(ChatColor.RED+"You cant do that");
+			break;
+		case "icoff":  
+			if (sender instanceof Player) {
+				Commander.removeFromIList((Player)sender); //   
+				}else
+					sender.sendMessage(ChatColor.RED+"You cant do that");
+			break;
+		case "ion":  
+			if (sender instanceof Player) {
+				Commander.addToIList((Player)sender); //    
 				}else
 					sender.sendMessage(ChatColor.RED+"You cant do that");
 			break;

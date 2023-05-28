@@ -40,8 +40,9 @@ public class Configurator {
 				hunt.add(h);
 			}
 		}
-		if(config.contains("Items")) {
-			items.addAll(config.getConfigurationSection("Items").getKeys(false));
+		if(config.contains("Inventories")) {
+			items.addAll(config.getConfigurationSection("Inventories").getKeys(false));
+			//TODO make for inventories instead of items
 			for(String s:items) {
 				ItemStack i= config.getItemStack("Items."+s+".Item");
 				Double d= config.getDouble("Items."+s+".Percentage");
