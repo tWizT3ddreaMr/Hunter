@@ -36,6 +36,6 @@ public class BlockInteractionListener {
         if (!(state instanceof Container)) { 
         	return;
         }
-        Configurator.addContainer(e.getClickedBlock());        
+        //Configurator.addContainer(e.getClickedBlock());        
     }
 }
