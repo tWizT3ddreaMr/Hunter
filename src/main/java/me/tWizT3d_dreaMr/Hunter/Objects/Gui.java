@@ -1,5 +1,8 @@
 package me.tWizT3d_dreaMr.Hunter.Objects;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -11,7 +14,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 
-import me.tWizT3d_dreaMr.ShopAddon.main;
 import me.tWizT3d_dreaMr.Hunter.Configurator;
 import net.md_5.bungee.api.ChatColor;
 
@@ -47,6 +49,22 @@ public class Gui {
 		
 		
 		return inventory;
+	}
+	private ItemStack guiItem(InventoryItems item) {
+		ItemStack fin=item.getReward().clone();
+		ItemMeta meta= fin.getItemMeta();
+
+		List<String> lore= new ArrayList<String>();
+		lore.add("Percentage "+item.Percentage());
+		//TODO add other important information or instructions
+		//TODO i could actually forgo the entire GUI and swap it to import chest layouts, 
+		//to have it propperly store the locations
+		// or could just copy the inventory
+				
+		meta.setDisplayName(item.getID());
+		meta.setLore(lore);
+		fin.setItemMeta(meta);
+		return fin;
 	}
 	public boolean is(InventoryView  test) {
 		return test.getTopInventory().getHolder() == null && test.getTitle().equals(name);

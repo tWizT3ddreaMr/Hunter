@@ -45,7 +45,7 @@ public class Configurator {
 			for(String s:items) {
 				ItemStack i= config.getItemStack("Items."+s+".Item");
 				Double d= config.getDouble("Items."+s+".Percentage");
-				InventoryItems in=new InventoryItems(i, d);
+				InventoryItems in=new InventoryItems(i, d, s);
 				invItems.add(in);
 			}
 		}
