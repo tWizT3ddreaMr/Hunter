@@ -3,3 +3,7 @@
 target/classes/me/tWizT3d_dreaMr/Hunter/Objects/HuntContainer.class
 target/classes/META-INF/maven/me.tWizT3d_dreaMr/Hunter/pom.properties
 *.class
+*.class
+target/classes/META-INF/maven/me.tWizT3d_dreaMr/Hunter/pom.properties
+target/classes/META-INF/MANIFEST.MF
+target/classes/me/tWizT3d_dreaMr/Hunter/main.class

@@ -25,6 +25,8 @@ public static boolean isOnList(Player p, int i) {
 	/*
 	 * 0 is for HuntContainer
 	 * 1 is for HunterInventories
+	 * coulda used boolean but i wanted to future proof this work 
+	 * incase i wanted more states
 	 */
 	if(i==0) {
 		if(PSetCont.isEmpty()) return false;
