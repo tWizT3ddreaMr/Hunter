@@ -4,9 +4,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class HunterInventories {
-private ItemStack[] items=new ItemStack[27];
-private double Percentage;
-private String ID;
+private final ItemStack[] items;
+private final double Percentage;
+private final String ID;
 public HunterInventories(String ID,ItemStack ... items) {
 	this.ID=ID;
 	Percentage=1;

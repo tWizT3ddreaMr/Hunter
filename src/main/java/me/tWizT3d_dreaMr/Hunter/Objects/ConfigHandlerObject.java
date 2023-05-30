@@ -16,7 +16,7 @@ public class ConfigHandlerObject {
 
     public ConfigHandlerObject(String ConfigName){
         this.ConfigName=ConfigName;
-        ConfigFile =new File(main.getPlugin().getDataFolder().toString()+"/"+ConfigName+".yml");
+        ConfigFile =new File(main.getPlugin().getDataFolder()+"/"+ConfigName+".yml");
         if(!ConfigFile.exists()){
         	Log.warn(ConfigName+".yml doesn't exist. Attempting to create the file");
             try {

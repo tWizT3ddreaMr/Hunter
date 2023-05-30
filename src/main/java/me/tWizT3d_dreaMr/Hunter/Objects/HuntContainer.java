@@ -9,11 +9,11 @@ import org.bukkit.block.data.Directional;
 
 public class HuntContainer {
 	
-private Location location;
-private String ID;
-private Material material;
-private BlockFace facing;
-private double Percentage;
+private final Location location;
+private final String ID;
+private final Material material;
+private final BlockFace facing;
+private final double Percentage;
 
 
 
@@ -36,15 +36,14 @@ public HuntContainer(Location location, String ID, Material material, BlockFace 
 }
 
 public Block set() {
-	Double d=Math.random()*100;
+	double d=Math.random()*100;
 	if(Percentage!=100&&d>Percentage) return null;
 	
 	location.getBlock().setType(material);
 	BlockData data=location.getBlock().getBlockData();
 	Directional dir=(Directional) data;
 	dir.setFacing(facing);
-	data=(BlockData) dir;
-	location.getBlock().setBlockData(data);
+	location.getBlock().setBlockData(dir);
 	
 	
 	return location.getBlock();
@@ -52,7 +51,7 @@ public Block set() {
 public Location getLocation() {
 	return location;
 }
-public String ID() {
+public String getID() {
 	return ID;
 }
 }

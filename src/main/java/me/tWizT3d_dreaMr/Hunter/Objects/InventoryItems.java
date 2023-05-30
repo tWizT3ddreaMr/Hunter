@@ -3,9 +3,9 @@ package me.tWizT3d_dreaMr.Hunter.Objects;
 import org.bukkit.inventory.ItemStack;
 
 public class InventoryItems {
-private double Percentage;
-private ItemStack Reward;
-private String ID;
+private final double Percentage;
+private final ItemStack Reward;
+private final String ID;
 
 public InventoryItems(ItemStack Reward, double percentage, String ID){
 	this.Percentage=percentage;

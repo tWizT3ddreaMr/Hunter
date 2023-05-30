@@ -45,7 +45,7 @@ public class Configurator {
 			//TODO make for inventories instead of items
 			for(String s:items) {
 				ItemStack i= config.getItemStack("Items."+s+".Item");
-				Double d= config.getDouble("Items."+s+".Percentage");
+				double d= config.getDouble("Items."+s+".Percentage");
 				InventoryItems in=new InventoryItems(i, d, s);
 				invItems.add(in);
 			}
@@ -68,24 +68,23 @@ public class Configurator {
 	public static String getUUID() {
 	String characters ="abcdefghijklmnopqrstuvwxyz1234567890";
 	int count=0;
-	String UUID="";
+	StringBuilder UUID= new StringBuilder();
 	while(count!=10){
 		int r=random(characters.length());
 			if(r!=characters.length())
-				UUID=UUID+characters.substring(r,r+1);
+				UUID.append(characters.charAt(r));
 			else
-				UUID=UUID+characters.substring(r);
+				UUID.append(characters.substring(r));
 	count++;	
 	}
 	
-	return UUID;
+	return UUID.toString();
 		
 		
 	}
 	public static int random(int x){
 		Random randomGenerator = new Random();
-		int	rand = randomGenerator.nextInt((x+1));
-	    return rand;
+	    return randomGenerator.nextInt((x+1));
 	}
 	public static void SetEm() {
 		Logger Log=Bukkit.getLogger();
