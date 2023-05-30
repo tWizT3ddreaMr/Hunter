@@ -23,6 +23,9 @@ public String getID() {
 public double getPercentage() {
 	return Percentage;
 }
+public ItemStack[] getItems() {
+	return items;
+}
 public Inventory setContents(Inventory inv) {
 	inv.clear();
 	

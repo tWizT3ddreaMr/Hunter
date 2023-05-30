@@ -45,7 +45,6 @@ public Block set() {
 	dir.setFacing(facing);
 	location.getBlock().setBlockData(dir);
 	
-	
 	return location.getBlock();
 }
 public Location getLocation() {
