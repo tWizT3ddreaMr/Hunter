@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import me.tWizT3d_dreaMr.Hunter.Objects.HuntContainer;
 import me.tWizT3d_dreaMr.Hunter.Objects.HunterInventories;
+import me.tWizT3d_dreaMr.Hunter.Objects.RandomCollection;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -22,7 +23,7 @@ public class Configurator {
 	public static ArrayList<String> containers=new ArrayList<>();
 	public static ArrayList<String> invs=new ArrayList<>();
 	public static ArrayList<HuntContainer> hunt=new ArrayList<>();
-	public static ArrayList<HunterInventories> invItems=new ArrayList<>();
+	public static RandomCollection<HunterInventories> invItems=new RandomCollection<>();
 	
 	public static void Init(YamlConfiguration conf) {
 		config=conf;
@@ -53,7 +54,7 @@ public class Configurator {
 					}
 				}
 				HunterInventories hi=new HunterInventories(d, s, items);
-				invItems.add(hi);
+				invItems.add(hi.getPercentage(), hi);
 			}
 		}
 	}
@@ -82,8 +83,8 @@ public class Configurator {
 			config.set("Inventories."+UUID+".Items."+in , i);
 			in++;
 		}
-		config.set("Inventories."+UUID+".Percentage." , 100.0);
-		invItems.add(HI);
+		config.set("Inventories."+UUID+".Percentage." , 10.0);
+		invItems.add(HI.getPercentage(), HI);
 		invs.add(UUID);
 		containers.add(UUID);
 		main.SAVE(config);
