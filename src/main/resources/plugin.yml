@@ -1,0 +1,9 @@
+name: Hunter
+author: tWizT3d_dreaMr
+version: 0.0.1
+main: me.tWizT3d_dreaMr.Hunter.main
+api-version: 1.19
+commands:
+   Hunter:
+      description: Command for this plugin
+      usage: /hunter

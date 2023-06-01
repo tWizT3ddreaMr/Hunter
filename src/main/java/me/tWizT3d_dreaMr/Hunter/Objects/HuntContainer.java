@@ -34,7 +34,9 @@ public HuntContainer(Location location, String ID, Material material, BlockFace 
 	this.Percentage=Percentage;
 
 }
-
+public double getPercentage() {
+	return Percentage;
+}
 public Block set() {
 	double d=Math.random()*100;
 	if(Percentage!=100&&d>Percentage) return null;

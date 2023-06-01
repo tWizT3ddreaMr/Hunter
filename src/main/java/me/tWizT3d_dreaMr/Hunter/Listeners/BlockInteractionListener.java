@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import me.tWizT3d_dreaMr.Hunter.Configurator;
 import me.tWizT3d_dreaMr.Hunter.main;
+import me.tWizT3d_dreaMr.Hunter.Items.CommandWorkings;
 
 public class BlockInteractionListener implements Listener {
 
@@ -39,6 +40,7 @@ public class BlockInteractionListener implements Listener {
         if (!(state instanceof Container)) { 
         	return;
         }
+        CommandWorkings.addInventory(e.getClickedBlock());
         //Configurator.addContainer(e.getClickedBlock());        
     }
 }

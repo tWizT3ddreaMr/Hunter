@@ -15,6 +15,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.Container;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 
@@ -41,6 +42,7 @@ public class Configurator {
 				hunt.add(h);
 			}
 		}
+		invs.clear();
 		if(config.contains("Inventories")) {
 			invs.addAll(config.getConfigurationSection("Inventories").getKeys(false));
 			for(String s:invs) {
@@ -123,8 +125,10 @@ public class Configurator {
 		}
 	}
 	private static void populateChest(Block b) {
-		// TODO 
-		// Fill the chest, somehow with the stuff I have done already
+		if(!(b.getState() instanceof Container))return;
+		Container c= (Container) b.getState();
+		invItems.next().setContents(c.getInventory());
+		c.update(true);
 		
 	}
 }

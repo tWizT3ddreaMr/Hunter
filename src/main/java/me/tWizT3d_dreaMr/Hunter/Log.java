@@ -6,10 +6,9 @@ import org.bukkit.Bukkit;
 
 public class Log {
 	private static boolean d;
-	private static Logger l;
+	private static Logger l=Bukkit.getLogger();
 public static void startup(boolean de) {
 	d=de;
-	l=Bukkit.getLogger();
 }
 public static void log(String s) {
 	l.log(Level.INFO, s);

@@ -7,7 +7,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class Commander {
 public static void CommandSetUp(){
-	Configurator.setUp();
+	Configurator.SetEm();
 }
 public static void toggleCPlayer(Player p) {
 	if(main.PSetCont.contains(p)) removeFromCList(p);

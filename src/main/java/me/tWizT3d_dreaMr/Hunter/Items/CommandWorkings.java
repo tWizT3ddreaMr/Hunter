@@ -29,6 +29,6 @@ public static void addInventory(Player p) {
 public static void addInventory(Inventory inv) {
 	String name=Configurator.getUUID();
 	HunterInventories HI=new HunterInventories(name, inv.getContents());
-	
+	Configurator.addHuntInventory(HI);
 }
 }
