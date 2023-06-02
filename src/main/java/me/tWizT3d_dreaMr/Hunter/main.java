@@ -106,6 +106,12 @@ switch (label) {
 			}else
 				sender.sendMessage(ChatColor.RED+"You cant do that");
 		break;
+	case "addItem":
+		if (sender instanceof Player) {
+			Commander.setItem((Player)sender);
+			}else
+				sender.sendMessage(ChatColor.RED+"You cant do that");
+		break;
 	case "reload":
 		Commander.reload();
 		sender.sendMessage(ChatColor.DARK_AQUA+"Reloading Config");

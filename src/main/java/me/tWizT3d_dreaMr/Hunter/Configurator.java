@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import me.tWizT3d_dreaMr.Hunter.Objects.HuntContainer;
 import me.tWizT3d_dreaMr.Hunter.Objects.HunterInventories;
+import me.tWizT3d_dreaMr.Hunter.Objects.InventoryItems;
 import me.tWizT3d_dreaMr.Hunter.Objects.RandomCollection;
 
 import org.bukkit.Bukkit;
@@ -21,16 +22,22 @@ import org.bukkit.inventory.ItemStack;
 
 public class Configurator {
 	public static YamlConfiguration config;
+	public static boolean inv;
 	public static ArrayList<String> containers=new ArrayList<>();
 	public static ArrayList<String> invs=new ArrayList<>();
 	public static ArrayList<HuntContainer> hunt=new ArrayList<>();
 	public static RandomCollection<HunterInventories> invItems=new RandomCollection<>();
+	public static RandomCollection<InventoryItems> items=new RandomCollection<>();
 	
 	public static void Init(YamlConfiguration conf) {
 		config=conf;
 	}
 	public static void setUp() {
 		containers.clear();
+		hunt.clear();
+		invs.clear();
+		invItems.clear();
+		items.clear();
 		if(config.contains("Containers")) {
 			containers.addAll(config.getConfigurationSection("Containers").getKeys(false));
 			for(String s:containers) {
@@ -42,23 +49,44 @@ public class Configurator {
 				hunt.add(h);
 			}
 		}
-		invs.clear();
-		if(config.contains("Inventories")) {
-			invs.addAll(config.getConfigurationSection("Inventories").getKeys(false));
-			for(String s:invs) {
-				ItemStack items[]=new ItemStack[27];
-				String path="Inventories."+s+".Items.";
-				double d= config.getDouble("Inventories."+s+".Percentage");
-				for(int in=0; in<27;in++) {
-					if(config.contains(path+in)) {
-						ItemStack i= config.getItemStack(path+in);
-						items[in]=i;
+		inv= true;
+		
+		if(config.contains("PopulationMethod")) {
+			if(config.getInt("PopulationMethod")==2)
+				inv= false;
+		} else 
+			config.set("PopulationMethod", 1);
+		
+		if(inv) {
+			if(config.contains("Inventories")) {
+				invs.addAll(config.getConfigurationSection("Inventories").getKeys(false));
+				for(String s:invs) {
+					ItemStack items[]=new ItemStack[27];
+					String path="Inventories."+s+".Items.";
+					double d= config.getDouble("Inventories."+s+".Percentage");
+					for(int in=0; in<27;in++) {
+						if(config.contains(path+in)) {
+							ItemStack i= config.getItemStack(path+in);
+							items[in]=i;
+						}
 					}
+					HunterInventories hi=new HunterInventories(d, s, items);
+					invItems.add(hi.getPercentage(), hi);
 				}
-				HunterInventories hi=new HunterInventories(d, s, items);
-				invItems.add(hi.getPercentage(), hi);
+			}
+		} else {
+			if(config.contains("Items")) {
+				invs.addAll(config.getConfigurationSection("Items").getKeys(false));
+				String i="Items.";
+				for(String s:invs) {
+					double d= config.getDouble(i+s+".Percentage");
+					ItemStack Reward= config.getItemStack(i+s+".Reward");
+					InventoryItems in=new InventoryItems(Reward, d, s);
+					items.add(d, in);
+				}
 			}
 		}
+		
 	}
 	public static void addContainer(Block b) {
 		String UUID= getUUID();
@@ -72,6 +100,22 @@ public class Configurator {
 		HuntContainer huntC=new HuntContainer(b.getLocation(), UUID, b.getType(), b.getBlockData(), 100.0);
 		hunt.add(huntC);
 		containers.add(UUID);
+		main.SAVE(config);
+		
+		
+	}
+	public static void addItem(ItemStack i) {
+		String UUID= getUUID();
+		while(config.contains(UUID)) {
+			UUID= getUUID();
+		}
+		String p="Items."+UUID+".";
+		config.set(p+"Reward", i);
+		config.set(p+"Percentage", 1.0);
+		invs.add(UUID);
+		InventoryItems invis=new InventoryItems(i, 1.0, UUID);
+		
+		items.add(1.0, invis);
 		main.SAVE(config);
 		
 		
@@ -131,10 +175,20 @@ public class Configurator {
 		if(!(b.getState() instanceof Container))return;
 		Logger Log=Bukkit.getLogger();
 		Container c= (Container) b.getState();
-		
-		HunterInventories hi=invItems.next();
-		Log.log(Level.INFO, hi.getID());
-		c.getInventory().setContents(hi.getItems());
-		
+		if(inv) {
+			HunterInventories hi=invItems.next();
+			Log.log(Level.INFO, hi.getID());
+			c.getInventory().setContents(hi.getItems());
+		} else {
+			String build="";
+			c.getInventory().clear();
+			for(int i=0;i<27;i++) {
+				InventoryItems invi=items.next();
+				build+= invi.getID()+" ";
+				if(invi.getReward()!=null)
+					c.getInventory().setItem(i, invi.getReward());
+			}
+			Log.log(Level.INFO, build);
+		}
 	}
 }

@@ -24,6 +24,10 @@ public class RandomCollection<E> {
         return this;
     }
 
+    public void clear() {
+    	map.clear();
+    }
+
     public E next() {
         double value = random.nextDouble() * total;
         return map.higherEntry(value).getValue();
