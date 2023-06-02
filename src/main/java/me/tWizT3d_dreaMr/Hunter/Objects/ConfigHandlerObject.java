@@ -23,7 +23,7 @@ public class ConfigHandlerObject {
                 main.getPlugin().saveResource(ConfigName+".yml", false);
             } catch (IllegalArgumentException i) {
                 try {
-                	Log.log(ConfigName+".yml does not exist in the .jar");
+                	Log.log(ConfigName+".yml does not exist in the .jar creating blank");
                     ConfigFile.createNewFile();
                 } catch (IOException e) {
                     // TODO Auto-generated catch block

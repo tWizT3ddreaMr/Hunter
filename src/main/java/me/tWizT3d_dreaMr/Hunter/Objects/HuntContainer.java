@@ -12,13 +12,15 @@ public class HuntContainer {
 private final Location location;
 private final String ID;
 private final Material material;
+private final Material alt;
 private final BlockFace facing;
 private final double Percentage;
 
 
 
-public HuntContainer(Location location, String ID, Material material, BlockData state, double Percentage) {
+public HuntContainer(Location location, String ID, Material material, BlockData state, double Percentage, Material alt) {
 	Directional dir= (Directional) state;
+	this.alt = alt;
 	facing= dir.getFacing();
 	this.ID=ID;
 	this.material= material;
@@ -26,7 +28,8 @@ public HuntContainer(Location location, String ID, Material material, BlockData 
 	this.Percentage=Percentage;
 
 }
-public HuntContainer(Location location, String ID, Material material, BlockFace facing, double Percentage) {
+public HuntContainer(Location location, String ID, Material material, BlockFace facing, double Percentage, Material alt) {
+	this.alt = alt;
 	this.facing=facing;
 	this.ID=ID;
 	this.material= material;
@@ -39,7 +42,11 @@ public double getPercentage() {
 }
 public Block set() {
 	double d=Math.random()*100;
-	if(Percentage!=100&&d>Percentage) return null;
+	if(Percentage!=100&&d>Percentage) {
+		if(alt != null)
+			location.getBlock().setType(alt);
+		return null;
+	}
 	
 	location.getBlock().setType(material);
 	BlockData data=location.getBlock().getBlockData();

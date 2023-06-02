@@ -17,7 +17,11 @@ public class main extends JavaPlugin{
 	public static ArrayList<Player> PSetCont=new ArrayList<>();
 	public static ArrayList<Player> PSetInv=new ArrayList<>();
 private static Plugin plugin;
-private static ConfigHandlerObject con;
+private static ConfigHandlerObject MainCon;
+private static ConfigHandlerObject LangCon;
+private static ConfigHandlerObject ContCon;
+private static ConfigHandlerObject ItemCon;
+private static ConfigHandlerObject InvCon;
 @Override
 public void onEnable() {
 	plugin=this;
@@ -42,12 +46,25 @@ public static boolean isOnList(Player p, int i) {
 	}
 	return false;
 }
-public static void SAVE(YamlConfiguration config) {
-	con.SaveConfig(config);
+public static void SAVE(YamlConfiguration config, int cv) {
+	if(cv==1)
+		MainCon.SaveConfig(config);
+	if(cv==2)
+		ContCon.SaveConfig(config);
+	if(cv==3)
+		ItemCon.SaveConfig(config);
+	if(cv==4)
+		InvCon.SaveConfig(config);
 }
 public static void LOAD() {
-	con=new ConfigHandlerObject("config");
-	Configurator.Init(con.getConfig());
+	MainCon=new ConfigHandlerObject("config");
+	LangCon=new ConfigHandlerObject("Lang");
+	ContCon=new ConfigHandlerObject("Container");
+	ItemCon=new ConfigHandlerObject("Items");
+	InvCon=new ConfigHandlerObject("Inventories");
+	
+	Configurator.Init(MainCon.getConfig(), ContCon.getConfig(), ItemCon.getConfig(), InvCon.getConfig());
+	LangHandler.Init(LangCon.getConfig());
 	Configurator.setUp();
 }
 
