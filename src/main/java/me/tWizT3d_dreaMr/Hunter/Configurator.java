@@ -82,10 +82,13 @@ public class Configurator {
 		ItemStack items[]=HI.getItems(); 
 		int in=0;
 		for(ItemStack i: items) {
-			config.set("Inventories."+UUID+".Items."+in , i);
+			if(i==null)
+				config.set("Inventories."+UUID+".Items."+in , new ItemStack(Material.AIR));
+			else
+				config.set("Inventories."+UUID+".Items."+in , i);
 			in++;
 		}
-		config.set("Inventories."+UUID+".Percentage." , 10.0);
+		config.set("Inventories."+UUID+".Percentage" , 10.0);
 		invItems.add(HI.getPercentage(), HI);
 		invs.add(UUID);
 		containers.add(UUID);
@@ -117,18 +120,21 @@ public class Configurator {
 		Logger Log=Bukkit.getLogger();
 		for(HuntContainer h:hunt) {
 			Block b=h.set();
-			if(b==null) Log.log(Level.INFO, getUUID()+" NotSet");
+			if(b==null) Log.log(Level.INFO, h.getID()+" NotSet");
 			else {
-				Log.log(Level.INFO, getUUID()+" Set");
+				Log.log(Level.INFO, h.getID()+" Set");
 				populateChest(b);
 			}
 		}
 	}
 	private static void populateChest(Block b) {
 		if(!(b.getState() instanceof Container))return;
+		Logger Log=Bukkit.getLogger();
 		Container c= (Container) b.getState();
-		invItems.next().setContents(c.getInventory());
-		c.update(true);
+		
+		HunterInventories hi=invItems.next();
+		Log.log(Level.INFO, hi.getID());
+		c.getInventory().setContents(hi.getItems());
 		
 	}
 }

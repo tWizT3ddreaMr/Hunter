@@ -3,6 +3,7 @@ package me.tWizT3d_dreaMr.Hunter.Objects;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+
 public class HunterInventories {
 private final ItemStack[] items;
 private final double Percentage;
@@ -28,7 +29,6 @@ public ItemStack[] getItems() {
 }
 public Inventory setContents(Inventory inv) {
 	inv.clear();
-	
 	inv.setContents(items);
 	return inv;
 }

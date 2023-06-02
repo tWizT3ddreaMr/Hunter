@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import me.tWizT3d_dreaMr.Hunter.Configurator;
 import me.tWizT3d_dreaMr.Hunter.main;
 import me.tWizT3d_dreaMr.Hunter.Items.CommandWorkings;
+import net.md_5.bungee.api.ChatColor;
 
 public class BlockInteractionListener implements Listener {
 
@@ -29,6 +30,7 @@ public class BlockInteractionListener implements Listener {
         if (!(state instanceof Container)) { 
         	return;
         }
+        e.getPlayer().sendMessage(ChatColor.of("#a3ebb1")+"Set container");
         Configurator.addContainer(e.getClickedBlock());        
     }
     public void ClickBlockInventory(PlayerInteractEvent e) {
@@ -40,7 +42,7 @@ public class BlockInteractionListener implements Listener {
         if (!(state instanceof Container)) { 
         	return;
         }
-        CommandWorkings.addInventory(e.getClickedBlock());
-        //Configurator.addContainer(e.getClickedBlock());        
+        e.getPlayer().sendMessage(ChatColor.of("#18a558")+"Set Inventory");
+        CommandWorkings.addInventory(e.getClickedBlock());   
     }
 }

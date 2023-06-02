@@ -50,12 +50,13 @@ public static void LOAD() {
 	Configurator.Init(con.getConfig());
 	Configurator.setUp();
 }
-public boolean onCommand(CommandSender sender, Command command, String[] args) {
+
+public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 if (!command.getName().equalsIgnoreCase("Hunter"))
 	return false;
 	//if (sender instanceof Player) {
 	//}, 
-String label="help";
+label="help";
 if(args.length==0) {
 	Commander.help(sender);
 	return true;
@@ -107,12 +108,12 @@ switch (label) {
 		break;
 	case "reload":
 		Commander.reload();
+		sender.sendMessage(ChatColor.DARK_AQUA+"Reloading Config");
 		break;
 	case "setup":
+		sender.sendMessage(ChatColor.GOLD+"Setting up chests");
 		Commander.CommandSetUp();
-		break;
-	case "set":
-		//TODO
+		sender.sendMessage(ChatColor.GOLD+"Done");
 		break;
 	default:
 		Commander.help(sender);
