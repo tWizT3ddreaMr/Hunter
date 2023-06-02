@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -17,16 +18,17 @@ public static void Init(YamlConfiguration l) {
 } 
 
 public static void sendMessage(Player p, String path) {
-	if(path.equals("Main.Help")) {
-		@SuppressWarnings("unchecked")
-		List<String> helpmessage= (List<String>) Lang.getList(path);
-		for(String message:helpmessage)
-			p.sendMessage(Colorfy(message));
-		return;
-	}
 	p.sendMessage(Colorfy(Lang.getString(path)));
 		
 	return;
+}
+public static void HelpMessage(CommandSender p) {
+	@SuppressWarnings("unchecked")
+	List<String> helpmessage= (List<String>) Lang.getList("Main.Help");
+	for(String message:helpmessage)
+		p.sendMessage(Colorfy(message));
+	return;
+	
 }
 public static String getMessage(String path) {
 	

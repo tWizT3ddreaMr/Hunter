@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import me.tWizT3d_dreaMr.Hunter.Listeners.BlockInteractionListener;
 import me.tWizT3d_dreaMr.Hunter.Objects.ConfigHandlerObject;
-import net.md_5.bungee.api.ChatColor;
 
 public class main extends JavaPlugin{
 	public static ArrayList<Player> PSetCont=new ArrayList<>();
@@ -80,7 +79,7 @@ if(args.length==0) {
 }
 label=args[0];
 if(!sender.hasPermission("Hunter."+label)) {
-	sender.sendMessage(ChatColor.RED+"No permissions for command /hunter "+label);
+	sender.sendMessage(LangHandler.getMessage("Main.NoPermission").replace("%args%", label));
 	return true;
 }
 switch (label) {
@@ -91,52 +90,52 @@ switch (label) {
 		if (sender instanceof Player) {
 			Commander.toggleCPlayer((Player)sender);
 			}else
-				sender.sendMessage(ChatColor.RED+"You cant do that");
+				sender.sendMessage(LangHandler.getMessage("Main.NotPlayer"));
 		break;
 	case "coff":
 		if (sender instanceof Player) {
 			Commander.removeFromCList((Player)sender); //
 			}else
-				sender.sendMessage(ChatColor.RED+"You cant do that");
+				sender.sendMessage(LangHandler.getMessage("Main.NotPlayer"));
 		break;
 	case "con":
 		if (sender instanceof Player) {
 			Commander.addToCList((Player)sender); //
 			}else
-				sender.sendMessage(ChatColor.RED+"You cant do that");
+				sender.sendMessage(LangHandler.getMessage("Main.NotPlayer"));
 		break;
 	case "itoggle":
 		if (sender instanceof Player) {
 			Commander.toggleIPlayer((Player)sender);
 			}else
-				sender.sendMessage(ChatColor.RED+"You cant do that");
+				sender.sendMessage(LangHandler.getMessage("Main.NotPlayer"));
 		break;
 	case "icoff":
 		if (sender instanceof Player) {
 			Commander.removeFromIList((Player)sender); //
 			}else
-				sender.sendMessage(ChatColor.RED+"You cant do that");
+				sender.sendMessage(LangHandler.getMessage("Main.NotPlayer"));
 		break;
 	case "ion":
 		if (sender instanceof Player) {
 			Commander.addToIList((Player)sender); //
 			}else
-				sender.sendMessage(ChatColor.RED+"You cant do that");
+				sender.sendMessage(LangHandler.getMessage("Main.NotPlayer"));
 		break;
 	case "addItem":
 		if (sender instanceof Player) {
 			Commander.setItem((Player)sender);
 			}else
-				sender.sendMessage(ChatColor.RED+"You cant do that");
+				sender.sendMessage(LangHandler.getMessage("Main.NotPlayer"));
 		break;
 	case "reload":
 		Commander.reload();
-		sender.sendMessage(ChatColor.DARK_AQUA+"Reloading Config");
+		sender.sendMessage(LangHandler.getMessage("Main.Reload"));
 		break;
 	case "setup":
-		sender.sendMessage(ChatColor.GOLD+"Setting up chests");
+		sender.sendMessage(LangHandler.getMessage("Main.SetUp.Start"));
 		Commander.CommandSetUp();
-		sender.sendMessage(ChatColor.GOLD+"Done");
+		sender.sendMessage(LangHandler.getMessage("Main.SetUp.End"));
 		break;
 	default:
 		Commander.help(sender);
