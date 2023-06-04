@@ -77,7 +77,7 @@ if(args.length==0) {
 	Commander.help(sender);
 	return true;
 }
-label=args[0];
+label=args[0].toLowerCase();
 if(!sender.hasPermission("Hunter."+label)) {
 	sender.sendMessage(LangHandler.getMessage("Main.NoPermission").replace("%args%", label));
 	return true;
@@ -110,7 +110,7 @@ switch (label) {
 			}else
 				sender.sendMessage(LangHandler.getMessage("Main.NotPlayer"));
 		break;
-	case "icoff":
+	case "ioff":
 		if (sender instanceof Player) {
 			Commander.removeFromIList((Player)sender); //
 			}else
@@ -122,7 +122,7 @@ switch (label) {
 			}else
 				sender.sendMessage(LangHandler.getMessage("Main.NotPlayer"));
 		break;
-	case "addItem":
+	case "additem":
 		if (sender instanceof Player) {
 			Commander.setItem((Player)sender);
 			}else
