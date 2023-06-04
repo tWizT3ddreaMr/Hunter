@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import java.util.ArrayList;
+import java.util.List;
 
 import me.tWizT3d_dreaMr.Hunter.Listeners.BlockInteractionListener;
 import me.tWizT3d_dreaMr.Hunter.Objects.ConfigHandlerObject;
@@ -55,6 +56,35 @@ public static void SAVE(YamlConfiguration config, int cv) {
 	if(cv==4)
 		InvCon.SaveConfig(config);
 }
+public List<String> onTabComplete(CommandSender sender, Command cmd, String CommandLabel, String[] args) {
+    if (!cmd.getName().equalsIgnoreCase("hunter")) return null;
+    ArrayList<String> ret = new ArrayList<String>();
+    boolean z=false;
+    String s="empty";
+    if(args.length==0) 
+    	z=true;
+    else
+    s=args[0];
+    if(z || "con".startsWith(s))
+    	ret.add("con");
+    if(z || "coff".startsWith(s))
+    	ret.add("coff");
+    if(z || "ion".startsWith(s))
+    	ret.add("ion");
+    if(z || "ioff".startsWith(s))
+    	ret.add("ioff");
+    if(z || "additem".startsWith(s))
+    	ret.add("additem");
+    if(z || "reload".startsWith(s))
+    	ret.add("reload");
+    if(z || "setup".startsWith(s))
+    	ret.add("setup");
+    if(z || "help".startsWith(s))
+    	ret.add("help");
+    	
+    return ret;
+    }
+
 public static void LOAD() {
 	MainCon=new ConfigHandlerObject("config");
 	LangCon=new ConfigHandlerObject("Lang");
@@ -70,8 +100,6 @@ public static void LOAD() {
 public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 if (!command.getName().equalsIgnoreCase("Hunter"))
 	return false;
-	//if (sender instanceof Player) {
-	//}, 
 label="help";
 if(args.length==0) {
 	Commander.help(sender);
