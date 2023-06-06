@@ -1,5 +1,7 @@
 package me.tWizT3d_dreaMr.Hunter.GUI;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -10,52 +12,45 @@ import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.snowgears.shop.Shop;
-import com.snowgears.shop.shop.AbstractShop;
-import com.snowgears.shop.util.CurrencyType;
-
-import me.tWizT3d_dreaMr.ShopAddon.main;
+import me.tWizT3d_dreaMr.Hunter.Utils;
 import net.md_5.bungee.api.ChatColor;
 
 public class Gui {
 	private Player p;
-	private AbstractShop shop;
 	private String name;
+	private int page;
+	
 	private Inventory inv;
-	public Gui(Player player, AbstractShop aShop) {
+	public Gui(Player player) {
 		this.p= player;
-		this.shop= aShop;
+		this.page= 1;
 		this.inv=openGui();
 		p.openInventory(inv);
 	}
 	private Inventory openGui() {
-		Shop.getPlugin().getCurrencyType();
-		Location l= shop.getSignLocation();
-		this.name= "Shop at " + l.getBlockX() + " " + l.getBlockY() + " " + l.getBlockZ();
-		Inventory inventory= Bukkit.createInventory(null, InventoryType.CHEST, name);
-		for(int i=0; i<27; i++) {
-			if(i==10||i==11||i==12) 
-				inventory.setItem(i, getItems(i));
-
-			else if(i==14||i==15||i==16) 
-				inventory.setItem(i, getPrice(i));
-			
-			else if(i==26||i==0||i==18||i==9||i==0||i==17||i==8) {
-				ItemStack item= new ItemStack(main.Confirm);
-				ItemMeta meta= item.getItemMeta();
-				meta.setDisplayName(ChatColor.GREEN+"Confirm "+ shop.getType().name().toLowerCase()+".");
-				item.setItemMeta(meta);
-				inventory.setItem(i, item);
-				}
-			
-			else if(i==13)
-				inventory=set13(inventory);
-			
-			else inventory.setItem(i, new ItemStack(main.Default));
+		this.name= Utils.getUUID();
+		Inventory inventory=Bukkit.createInventory(p, 54, name);
+		
+		for(int i=0; i<45; i++) {
+			if(Utils.getAllInvItems().size()<i) break;
+			inventory.setItem(i, Utils.getAllInvItems().get(i).getReward());
 		}
 		
 		
+		inventory.setItem(53, ItemBuilder(Material.RED_STAINED_GLASS_PANE, ChatColor.RED+"Previous Page", null));
+		inventory.setItem(54, ItemBuilder(Material.GREEN_STAINED_GLASS_PANE, ChatColor.GREEN+"Next Page", null));
+		inventory.setItem(52, ItemBuilder(Material.PAPER, ChatColor.GRAY+"Page", null));
+		
 		return inventory;
+	}
+	public ItemStack ItemBuilder(Material mat, String name, ArrayList<String> lore) {
+		ItemStack build=new ItemStack(mat);
+		ItemMeta meta= build.getItemMeta();
+		meta.setDisplayName(name);
+		meta.setLore(lore);
+		build.setItemMeta(meta);
+		
+		return build;
 	}
 	public boolean is(InventoryView  test) {
 		return test.getTopInventory().getHolder() == null && test.getTitle().equals(name);

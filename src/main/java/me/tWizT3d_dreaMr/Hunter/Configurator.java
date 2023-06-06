@@ -1,5 +1,4 @@
 package me.tWizT3d_dreaMr.Hunter;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -93,15 +92,16 @@ public class Configurator {
 					ItemStack Reward= ItemConfig.getItemStack(i+s+".Reward");
 					InventoryItems in=new InventoryItems(Reward, d, s);
 					items.add(d, in);
+					Utils.addItem(in);
 				}
 			}
 		}
 		
 	}
 	public static void addContainer(Block b) {
-		String UUID= getUUID();
+		String UUID= Utils.getUUID();
 		while(ContainerConfig.contains(UUID)) {
-			UUID= getUUID();
+			UUID= Utils.getUUID();
 		}
 		ContainerConfig.set("Containers."+UUID+".Location", b.getLocation());
 		ContainerConfig.set("Containers."+UUID+".Material", b.getType().name());
@@ -115,9 +115,9 @@ public class Configurator {
 		
 	}
 	public static void addItem(ItemStack i) {
-		String UUID= getUUID();
+		String UUID= Utils.getUUID();
 		while(ItemConfig.contains(UUID)) {
-			UUID= getUUID();
+			UUID= Utils.getUUID();
 		}
 		String p="Items."+UUID+".";
 		ItemConfig.set(p+"Reward", i);
@@ -126,6 +126,7 @@ public class Configurator {
 		InventoryItems invis=new InventoryItems(i, 1.0, UUID);
 		
 		items.add(1.0, invis);
+		Utils.addItem(invis);
 		main.SAVE(ItemConfig, 3);
 		
 		
@@ -149,27 +150,7 @@ public class Configurator {
 		main.SAVE(InvConfig, 4);
 		
 	}
-	public static String getUUID() {
-	String characters ="abcdefghijklmnopqrstuvwxyz1234567890";
-	int count=0;
-	StringBuilder UUID= new StringBuilder();
-	while(count!=10){
-		int r=random(characters.length());
-			if(r!=characters.length())
-				UUID.append(characters.charAt(r));
-			else
-				UUID.append(characters.substring(r));
-	count++;	
-	}
-	
-	return UUID.toString();
-		
-		
-	}
-	public static int random(int x){
-		Random randomGenerator = new Random();
-	    return randomGenerator.nextInt((x+1));
-	}
+
 	public static void SetEm() {
 		Logger Log=Bukkit.getLogger();
 		for(HuntContainer h:hunt) {

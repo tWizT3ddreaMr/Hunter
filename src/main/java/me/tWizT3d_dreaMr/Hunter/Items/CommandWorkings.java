@@ -10,6 +10,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import me.tWizT3d_dreaMr.Hunter.Configurator;
+import me.tWizT3d_dreaMr.Hunter.Utils;
 import me.tWizT3d_dreaMr.Hunter.Objects.HunterInventories;
 
 public class CommandWorkings {
@@ -27,7 +28,7 @@ public static void addInventory(Player p) {
 	addInventory(inventory);
 }
 public static void addInventory(Inventory inv) {
-	String name=Configurator.getUUID();
+	String name=Utils.getUUID();
 	HunterInventories HI=new HunterInventories(name, inv.getContents());
 	Configurator.addHuntInventory(HI);
 }

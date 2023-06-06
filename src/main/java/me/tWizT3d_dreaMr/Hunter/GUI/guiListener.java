@@ -48,15 +48,16 @@ public class guiListener implements Listener {
     	Gui gui= Guis.getGui(e.getView());
     	if(gui == null)
     		return;
-    		
     	int i=e.getRawSlot();
-    	if(e.getAction()== InventoryAction.MOVE_TO_OTHER_INVENTORY)
-	    	if(i==26||i==0||i==18||i==9||i==0||i==17||i==8) {
+    	
+    	if(e.getAction()== InventoryAction.MOVE_TO_OTHER_INVENTORY)	    	
+    		if(i==26||i==0||i==18||i==9||i==0||i==17||i==8) {
+    			event.setCancelled(true);
 		    	AbstractShop shop=gui.getShop();
 		    	PlayerInteractEvent event= new PlayerInteractEvent((Player)e.getWhoClicked(), Action.LEFT_CLICK_BLOCK,
 		    			e.getWhoClicked().getInventory().getItemInMainHand(), shop.getSignLocation().getBlock(),
 		    			BlockFace.EAST, EquipmentSlot.HAND);
-		    	event.setCancelled(true);
+		    	
 		    	Shop.getPlugin().getTransactionHelper().executeTransactionFromEvent(event, shop, true);
 		    	gui.update();
 	    	}
