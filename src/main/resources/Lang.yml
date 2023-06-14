@@ -37,7 +37,10 @@ Lists:
    ContainerOff: "&cRemoved from Container set list"
    InventoryOn: "&aAdded to Inventory set list"
    InventoryOff: "&cRemoved from Inventory set list"
+   AddAllOn: "&aAdding all to itemlist"
+   AddAllOff: "&cNo longer adding all to itemlist"
 Confirmations:
    Container: "&#a3ebb1Set container"
    Inventory: "&#18a558Set Inventory"
+   ContainerOfItems: "&#18a558Set all items"
    Items: "&aItem added to ItemList"

@@ -45,4 +45,16 @@ public class BlockInteractionListener implements Listener {
         LangHandler.sendMessage(e.getPlayer(), "Confirmations.Inventory");
         CommandWorkings.addInventory(e.getClickedBlock());   
     }
+    public void ClickBlockItem(PlayerInteractEvent e) {
+    	Player clicker=e.getPlayer();
+    	if(!main.isOnList(clicker,2)) return;
+    	
+        BlockState state = e.getClickedBlock().getState();
+        
+        if (!(state instanceof Container)) { 
+        	return;
+        }
+        LangHandler.sendMessage(e.getPlayer(), "Confirmations.ContainerOfItems");
+        CommandWorkings.addItems(e.getClickedBlock());   
+    }
 }

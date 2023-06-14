@@ -16,6 +16,7 @@ import me.tWizT3d_dreaMr.Hunter.Objects.ConfigHandlerObject;
 public class main extends JavaPlugin{
 	public static ArrayList<Player> PSetCont=new ArrayList<>();
 	public static ArrayList<Player> PSetInv=new ArrayList<>();
+	public static ArrayList<Player> AddAllList=new ArrayList<>();
 private static Plugin plugin;
 private static ConfigHandlerObject MainCon;
 private static ConfigHandlerObject LangCon;
@@ -43,6 +44,10 @@ public static boolean isOnList(Player p, int i) {
 	if(i==1) {
 		if(PSetInv.isEmpty()) return false;
 		return PSetInv.contains(p);
+	}
+	if(i==2) {
+		if(AddAllList.isEmpty()) return false;
+		return AddAllList.contains(p);
 	}
 	return false;
 }
@@ -153,6 +158,12 @@ switch (label) {
 	case "additem":
 		if (sender instanceof Player) {
 			Commander.setItem((Player)sender);
+			}else
+				sender.sendMessage(LangHandler.getMessage("Main.NotPlayer"));
+		break;
+	case "addAll":
+		if (sender instanceof Player) {
+			Commander.toggleAddAll((Player) sender);
 			}else
 				sender.sendMessage(LangHandler.getMessage("Main.NotPlayer"));
 		break;

@@ -34,6 +34,18 @@ public static void removeFromIList(Player p) {
 	LangHandler.sendMessage(p, "Lists.InventoryOff");
 	main.PSetInv.remove(p);
 }
+public static void toggleAddAll(Player p) {
+	if(main.PSetInv.contains(p)) removeFromAddAll(p);
+	else addToAddAll(p);
+}
+public static void addToAddAll(Player p) {
+	LangHandler.sendMessage(p, "Lists.AddAllOn");
+	main.PSetInv.add(p);
+}
+public static void removeFromAddAll(Player p) {
+	LangHandler.sendMessage(p, "Lists.AddAllOff");
+	main.PSetInv.remove(p);
+}
 public static void setItem(Player p) {
 	ItemStack i=p.getInventory().getItemInMainHand();
 	if(i == null||i.getType()==Material.AIR) return;
